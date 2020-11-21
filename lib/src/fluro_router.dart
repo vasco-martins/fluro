@@ -86,8 +86,9 @@ class FluroRouter {
         route = _notFoundRoute(context, path, maintainState: maintainState);
       }
       if (route != null) {
-        final navigator =
-            Navigator.of(context, rootNavigator: rootNavigator, nullOk: nullOk);
+        final navigator = nullOk
+            ? Navigator.maybeOf(context, rootNavigator: rootNavigator)
+            : Navigator.of(context, rootNavigator: rootNavigator);
         if (clearStack) {
           future = navigator.pushAndRemoveUntil(route, (check) => false);
         } else {
